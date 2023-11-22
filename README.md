@@ -18,7 +18,6 @@
 ## itemsテーブル
 | Column                | Type              | Option                         |
 | --------------------- | ----------------- | ------------------------------ |
-| image                 | text              | null: false
 | product_name          | string            | null: false                    |
 | explanation           | text              | null: false                    |
 | category_id           | integer           | null: false                    |
@@ -51,6 +50,7 @@
 
 ## purchasesテーブル
 | Column                | Type              | Option                         |
+| --------------------- | ----------------- | ------------------------------ |
 | user                  | references        | null: false, foreign_key: true |
 | item                  | references        | null: false, foreign_key: true |
 
