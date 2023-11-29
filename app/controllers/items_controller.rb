@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  # before_action :sold_edit, only: :edit
+  before_action :sold_edit, only: :edit
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -52,10 +52,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  # def sold_edit
-    #if @item.purchase.present?
-      #redirect_to root_path
-    #end
-  # end
+  def sold_edit
+    if @item.purchase.present?
+      redirect_to root_path
+    end
+  end
 
 end
