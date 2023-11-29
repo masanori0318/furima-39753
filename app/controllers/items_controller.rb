@@ -24,9 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless current_user.id == @item.user_id
-      redirect_to action: :index
-    end
+    return if current_user.id == @item.user_id
+
+    redirect_to action: :index
   end
 
   def update
@@ -45,7 +45,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:product_name, :category_id, :condition_id, :shipping_charge_id, :prefecture_id, :shipping_date_id, :explanation, :price, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:product_name, :category_id, :condition_id, :shipping_charge_id, :prefecture_id,
+                                 :shipping_date_id, :explanation, :price, :image).merge(user_id: current_user.id)
   end
 
   def set_item
@@ -53,9 +54,8 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    if @item.purchase.present?
-      redirect_to root_path
-    end
-  end
+    return unless @item.purchase.present?
 
+    redirect_to root_path
+  end
 end
