@@ -14,7 +14,7 @@ RSpec.describe Item, type: :model do
       it '商品名が空では出品できない' do
         @item.product_name = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Title can't be blank")
+        expect(@item.errors.full_messages).to include("Product name can't be blank")
       end
       it '説明が空では出品できない' do
         @item.explanation = ''
@@ -29,17 +29,17 @@ RSpec.describe Item, type: :model do
       it '商品の状態に「1」が選択されている場合は出品できない' do
         @item.condition_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Situation can't be blank")
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
       it '配送料の負担に「1」が選択されている場合は出品できない' do
         @item.shipping_charge_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Postage can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping charge can't be blank")
       end
       it '発送元の地域に「1」が選択されている場合は出品できない' do
         @item.prefecture_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("City can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '発送までの日数に「1」が選択されている場合は出品できない' do
         @item.shipping_date_id = '1'
@@ -78,6 +78,4 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-# RSpec.describe Item, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
-# end
+end
