@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :sold_edit, only: :edit
 
   def index
-    @items = Item.all.order('created_at DESC')
+    # @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -23,24 +23,24 @@ class ItemsController < ApplicationController
   def show
   end
 
-  def edit
-    return if current_user.id == @item.user_id
+  # def edit
+    # return if current_user.id == @item.user_id
 
-    redirect_to action: :index
-  end
+    # redirect_to action: :index
+  # end
 
-  def update
-    if @item.update(item_params)
-      redirect_to item_path(params[:id])
-    else
-      render :edit
-    end
-  end
+  # def update
+    # if @item.update(item_params)
+      # redirect_to item_path(params[:id])
+    # else
+      # render :edit
+    # end
+  # end
 
-  def destroy
-    @item.destroy
-    redirect_to action: :index
-  end
+  # def destroy
+    # @item.destroy
+    # redirect_to action: :index
+  # end
 
   private
 
