@@ -26,18 +26,17 @@ class ItemsController < ApplicationController
 
   def edit
     unless current_user.id == @item.user_id
-      redirect_to action: :index
+      redirect_to root_path
     end
-    
   end
 
-  # def update
-  # if @item.update(item_params)
-  # redirect_to item_path(params[:id])
-  # else
-  # render :edit
-  # end
-  # end
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(params[:id])
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   # def destroy
   # @item.destroy
@@ -58,6 +57,6 @@ class ItemsController < ApplicationController
   def sold_edit
     #if @item.purchase.present?
       #redirect_to root_path
-    # end
+    #end
   end
 end
