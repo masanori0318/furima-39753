@@ -21,22 +21,22 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    
   end
 
-  # def edit
-  # return if current_user.id == @item.user_id
+  def edit
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
 
-  # redirect_to action: :index
-  # end
-
-  # def update
-  # if @item.update(item_params)
-  # redirect_to item_path(params[:id])
-  # else
-  # render :edit
-  # end
-  # end
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(params[:id])
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   # def destroy
   # @item.destroy
@@ -55,8 +55,8 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    return unless @item.purchase.present?
-
-    redirect_to root_path
+    #if @item.purchase.present?
+      #redirect_to root_path
+    #end
   end
 end
