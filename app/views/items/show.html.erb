@@ -28,7 +28,7 @@
         <%# unless @item.purchase.present? %>
           <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
           <p class="or-text">or</p>
-          <%= link_to "削除", "#", method: :delete, class:"item-destroy" %>
+          <%= link_to "削除", item_path(@item.id), method: :delete, data: { turbo_method: :delete }, class:"item-destroy" %>
         <%# end %>
       <% else %>
         <%# unless @item.purchase.present? %>
