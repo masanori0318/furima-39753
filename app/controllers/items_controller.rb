@@ -21,13 +21,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
-    unless current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    return if current_user.id == @item.user_id
+
+    redirect_to root_path
   end
 
   def update
@@ -56,8 +55,8 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    #if @item.purchase.present?
-      #redirect_to root_path
-    #end
+    # if @item.purchase.present?
+    # redirect_to root_path
+    # end
   end
 end
