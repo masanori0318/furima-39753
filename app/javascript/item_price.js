@@ -9,5 +9,4 @@ window.addEventListener('load', function(){
     addTax.innerHTML = (Math.floor(inputValue/10));
     profit.innerHTML = inputValue - (Math.floor(inputValue/10));
   })
-
 })
