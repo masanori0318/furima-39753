@@ -38,9 +38,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == @item.user_id
-      @item.destroy
-    end
+    @item.destroy if current_user.id == @item.user_id
     redirect_to action: :index
   end
 
@@ -56,14 +54,14 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-     if @item.purchase.present?
-       redirect_to root_path
-     end
+    return unless @item.purchase.present?
+
+    redirect_to root_path
   end
 
   def check_purchase
-    if current_user.id == @item.user_id || @item.purchase.present?
-      redirect_to root_path
-    end
+    return unless current_user.id == @item.user_id || @item.purchase.present?
+
+    redirect_to root_path
   end
 end

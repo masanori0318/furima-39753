@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :purchase_address do
-    token { "tok_abcdefghijk00000000000000000" }
+    token { 'tok_abcdefghijk00000000000000000' }
     post_code { '123-4567' }
-    prefecture_id { "3" }
-    city_id { '横浜市緑区' }
-    house_numberk { '青山1-1' }
-    building { '東京ハイツ' }
-    phone_number { '09012345678' }
+    prefecture_id { Faker::Number.between(from: 2, to: 48) }
+    city_id { Faker::Lorem.word }
+    house_number { Faker::Lorem.word }
+    building { Faker::Lorem.word }
+    phone_number { Faker::Number.number(digits: 10) }
   end
 end
