@@ -22,6 +22,7 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
+    @item = Item.find(params[:item_id]) # この行を追加
     params.require(:purchase_address).permit(:post_code, :prefecture_id, :city_id, :house_number, :building, :phone_number).merge(
       user_id: current_user.id, item_id: @item.id, token: params[:token]
     )
@@ -29,9 +30,12 @@ class PurchasesController < ApplicationController
 
   def items_user
     @item = Item.find(params[:item_id])
-    return unless current_user.id == @item.user.id
+    
 
-    redirect_to root_path
+    if user_signed_in? && @item.user.present? && current_user.id != @item.user.id
+      return unless current_user.id == @item.user.id
+      redirect_to root_path
+    end
   end
 
   def sold
