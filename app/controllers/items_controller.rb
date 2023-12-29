@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :sold_edit, only: :edit
-
+  before_action :soldout_to_root, only: [:edit, :update]
   def index
     @items = Item.all.order('created_at DESC')
   end
@@ -38,9 +38,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == @item.user_id
-      @item.destroy
-    end
+    @item.destroy if current_user.id == @item.user_id
     redirect_to action: :index
   end
 
@@ -56,8 +54,20 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    # if @item.purchase.present?
-    # redirect_to root_path
-    # end
+    return unless @item.purchase.present?
+
+    redirect_to root_path
+  end
+
+  def soldout_to_root
+    return unless @item.purchase.present?
+
+    redirect_to root_path, alert: 'This item has already been sold.'
+  end
+
+  def check_purchase
+    return unless current_user.id == @item.user_id || @item.purchase.present?
+
+    redirect_to root_path
   end
 end
