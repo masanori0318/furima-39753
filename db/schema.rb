@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_26_123851) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_13_113617) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,9 +46,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_123851) do
     t.string "house_number", null: false
     t.string "building"
     t.string "phone_number", null: false
+    t.bigint "purchase_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "purchase_id"
+    t.index ["purchase_id"], name: "index_addresses_on_purchase_id"
   end
 
   create_table "categories", charset: "utf8", force: :cascade do |t|
@@ -120,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_123851) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "purchases"
   add_foreign_key "items", "users"
   add_foreign_key "purchases", "items"
   add_foreign_key "purchases", "users"
