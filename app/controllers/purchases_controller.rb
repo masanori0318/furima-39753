@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :create]
+  before_action :authenticate_user!, except: [:create]
+  
   before_action :items_user
   before_action :sold
   def index
@@ -18,8 +19,9 @@ class PurchasesController < ApplicationController
       render :index, status: :unprocessable_entity
     end
   end
-
+  
   private
+  
 
   def purchase_params
     params.require(:purchase_address).permit(:post_code, :prefecture_id, :city_id, :house_number, :building, :phone_number).merge(
@@ -51,4 +53,5 @@ class PurchasesController < ApplicationController
       currency: 'jpy'
     )
   end
+  
 end
