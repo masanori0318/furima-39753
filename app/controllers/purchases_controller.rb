@@ -1,6 +1,5 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, except: [:create]
-  
   before_action :items_user
   before_action :sold
   def index
@@ -31,10 +30,12 @@ class PurchasesController < ApplicationController
 
   def items_user
     @item = Item.find(params[:item_id])
-
+    if @item.user_id == current_user.id || @item.purchase != nil
+      redirect_to root_path
+    end
     return unless user_signed_in? && @item.user.present? && current_user.id != @item.user.id
     return unless current_user.id == @item.user.id
-
+    
     redirect_to root_path
   end
 
